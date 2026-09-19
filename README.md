@@ -14,6 +14,7 @@
 2. C#
 3. Luau/Lua/LuaJIT
 4. JavaScript
+5. Python
 
 ---
 
