@@ -1,3 +1,92 @@
+-- open source we dont take any of your information 
+do
+    local KEY_LINK = "https://sub2unlock.io/i5fUQ"
+    local VALID_KEY = "bankai-key"
+    local keyEntered = false
+
+    task.spawn(function()
+        local plr = game:GetService("Players").LocalPlayer
+        local sg = Instance.new("ScreenGui")
+        sg.Name = "BankaiHubKey"
+        sg.ResetOnSpawn = false
+        sg.Parent = plr:WaitForChild("PlayerGui")
+
+        local bg = Instance.new("Frame")
+        bg.Size = UDim2.new(0, 360, 0, 210)
+        bg.Position = UDim2.new(0.5, -180, 0.5, -105)
+        bg.BackgroundColor3 = Color3.fromRGB(23, 10, 10)
+        bg.BorderSizePixel = 0
+        bg.Parent = sg
+
+        local title = Instance.new("TextLabel")
+        title.Size = UDim2.new(1, 0, 0, 42)
+        title.BackgroundTransparency = 1
+        title.Text = "Bankai Hub - Key Required"
+        title.TextColor3 = Color3.fromRGB(220, 38, 38)
+        title.TextScaled = true
+        title.Font = Enum.Font.GothamBold
+        title.Parent = bg
+
+        local info = Instance.new("TextLabel")
+        info.Position = UDim2.new(0, 10, 0, 46)
+        info.Size = UDim2.new(1, -20, 0, 38)
+        info.BackgroundTransparency = 1
+        info.Text = "Get your key at: " .. KEY_LINK
+        info.TextColor3 = Color3.fromRGB(255, 255, 255)
+        info.TextScaled = true
+        info.Font = Enum.Font.Gotham
+        info.TextWrapped = true
+        info.Parent = bg
+
+        local box = Instance.new("TextBox")
+        box.Position = UDim2.new(0, 40, 0, 92)
+        box.Size = UDim2.new(1, -80, 0, 36)
+        box.BackgroundColor3 = Color3.fromRGB(45, 20, 20)
+        box.BorderSizePixel = 0
+        box.PlaceholderText = "Enter your key here..."
+        box.PlaceholderColor3 = Color3.fromRGB(128, 90, 90)
+        box.TextColor3 = Color3.fromRGB(255, 255, 255)
+        box.Font = Enum.Font.Gotham
+        box.TextSize = 16
+        box.TextXAlignment = Enum.TextXAlignment.Center
+        box.Parent = bg
+
+        local check = Instance.new("TextButton")
+        check.Position = UDim2.new(0, 40, 0, 140)
+        check.Size = UDim2.new(1, -80, 0, 38)
+        check.BackgroundColor3 = Color3.fromRGB(220, 38, 38)
+        check.BorderSizePixel = 0
+        check.Text = "UNLOCK"
+        check.TextColor3 = Color3.fromRGB(255, 255, 255)
+        check.Font = Enum.Font.GothamBold
+        check.TextSize = 18
+        check.Parent = bg
+
+        local function tryUnlock()
+            local v = tostring(box.Text or ""):gsub("%s", "")
+            if v == VALID_KEY then
+                keyEntered = true
+                sg:Destroy()
+            else
+                pcall(function() setclipboard(KEY_LINK) end)
+                game:GetService("StarterGui"):SetCore("SendNotification", {
+                    Title = "Wrong key",
+                    Text = "Link copied! Get the key at " .. KEY_LINK,
+                    Duration = 6,
+                })
+                box.Text = ""
+            end
+        end
+
+        check.MouseButton1Click:Connect(tryUnlock)
+        box.FocusLost:Connect(function(enterPressed)
+            if enterPressed then tryUnlock() end
+        end)
+    end)
+
+    while not keyEntered do task.wait(0.2) end
+    print("[BankaiHub] Key verified - loading...")
+end
 
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
@@ -400,10 +489,10 @@ function UpdateIslandKisuneESP()
                         name.TextStrokeTransparency = 0.18
                         name.TextStrokeColor3 = Color3.fromRGB(12, 203, 214)
                         name.TextColor3 = Color3.fromRGB(80, 245, 245)
-                        name.Text = v.Name .. "\n–"
+                        name.Text = v.Name .. "\nâ€“"
                     end
                     local distance = round((game:GetService("Players").LocalPlayer.Character.Head.Position - v.Position).Magnitude / 3)
-                    v["NameEsp"].TextLabel.Text = string.format("🦊 %s\n%.0f M", v.Name, distance)
+                    v["NameEsp"].TextLabel.Text = string.format("ðŸ¦Š %s\n%.0f M", v.Name, distance)
                 end
             else
                 if v:FindFirstChild("NameEsp") then
@@ -440,10 +529,10 @@ function UpdateIslandMirageESP()
                         name.TextStrokeTransparency = 0.15
                         name.TextStrokeColor3 = Color3.fromRGB(120, 100, 245)
                         name.TextColor3 = Color3.fromRGB(160, 160, 245)
-                        name.Text = v.Name .. "\n–"
+                        name.Text = v.Name .. "\nâ€“"
                     end
                     local distance = round((game:GetService("Players").LocalPlayer.Character.Head.Position - v.Position).Magnitude / 3)
-                    v["NameEsp"].TextLabel.Text = string.format("🔮 %s\n%.0f M", v.Name, distance)
+                    v["NameEsp"].TextLabel.Text = string.format("ðŸ”® %s\n%.0f M", v.Name, distance)
                 end
             else
                 if v:FindFirstChild("NameEsp") then
@@ -486,10 +575,10 @@ function UpdateIslandESP()
                         name.TextStrokeTransparency = 0.17
                         name.TextStrokeColor3 = Color3.fromRGB(255, 255, 255)
                         name.TextColor3 = Color3.fromRGB(234, 238, 241)
-                        name.Text = v.Name .. "\n–"
+                        name.Text = v.Name .. "\nâ€“"
                     end
                     local distance = round((game:GetService("Players").LocalPlayer.Character.Head.Position - v.Position).Magnitude / 3)
-                    v["NameEsp"].TextLabel.Text = string.format("🏝 %s\n%.0f M", v.Name, distance)
+                    v["NameEsp"].TextLabel.Text = string.format("ðŸ %s\n%.0f M", v.Name, distance)
                 end
             else
                 if v:FindFirstChild("NameEsp") then
@@ -538,7 +627,7 @@ function UpdatePlayerChams()
                         local health = v.Character.Humanoid.Health
                         local maxHealth = v.Character.Humanoid.MaxHealth
                         local ratio = maxHealth > 0 and ((health / maxHealth) * 100) or 0
-                        v.Character.Head['NameEsp'..Number].TextLabel.Text = string.format("%s\n%.0fM | 🩸%.0f%%", v.Name, round(dist), round(ratio))
+                        v.Character.Head['NameEsp'..Number].TextLabel.Text = string.format("%s\n%.0fM | ðŸ©¸%.0f%%", v.Name, round(dist), round(ratio))
                     end
                 else
                     if not isnil(v.Character.Head) and v.Character.Head:FindFirstChild('NameEsp'..Number) then
@@ -579,7 +668,7 @@ function UpdateChestESP()
                         name.Text = "Chest"
                     end
                     local distance = round((game:GetService("Players").LocalPlayer.Character.Head.Position - chest:GetPivot().Position).Magnitude / 3)
-                    chest["ChestEsp"].TextLabel.Text = string.format("💰 Chest\n%.0f M", distance)
+                    chest["ChestEsp"].TextLabel.Text = string.format("ðŸ’° Chest\n%.0f M", distance)
                 end
             else
                 if chest:FindFirstChild("ChestEsp") then
@@ -619,7 +708,7 @@ function UpdateDevilChams()
                         name.Text = v.Name
                     end
                     local distance = round((game:GetService("Players").LocalPlayer.Character.Head.Position - v.Handle.Position).Magnitude / 3)
-                    v.Handle['NameEsp'..Number].TextLabel.Text = string.format("🍈 %s\n%.0f M", v.Name, distance)
+                    v.Handle['NameEsp'..Number].TextLabel.Text = string.format("ðŸˆ %s\n%.0f M", v.Name, distance)
                 end
             else
                 if v:FindFirstChild("Handle") and v.Handle:FindFirstChild("NameEsp"..Number) then
@@ -657,19 +746,19 @@ function UpdateFlowerChams()
                         if v.Name == "Flower1" then
                             name.TextColor3 = Color3.fromRGB(0, 123, 255)
                             name.TextStrokeColor3 = Color3.fromRGB(0, 39, 255)
-                            name.Text = "💠 Blue Flower"
+                            name.Text = "ðŸ’  Blue Flower"
                         else
                             name.TextColor3 = Color3.fromRGB(240, 85, 110)
                             name.TextStrokeColor3 = Color3.fromRGB(227, 10, 55)
-                            name.Text = "💮 Red Flower"
+                            name.Text = "ðŸ’® Red Flower"
                         end
                     end
                     local distance = round((game:GetService("Players").LocalPlayer.Character.Head.Position - v.Position).Magnitude / 3)
                     if v:FindFirstChild("NameEsp"..Number) then
                         if v.Name == "Flower1" then
-                            v["NameEsp"..Number].TextLabel.Text = string.format("💠 Blue Flower\n%.0f M", distance)
+                            v["NameEsp"..Number].TextLabel.Text = string.format("ðŸ’  Blue Flower\n%.0f M", distance)
                         else
-                            v["NameEsp"..Number].TextLabel.Text = string.format("💮 Red Flower\n%.0f M", distance)
+                            v["NameEsp"..Number].TextLabel.Text = string.format("ðŸ’® Red Flower\n%.0f M", distance)
                         end
                     end
                 else
@@ -710,7 +799,7 @@ function UpdateRealFruitChams()
                     name.Text = v.Name
                 end
                 local distance = round((game:GetService("Players").LocalPlayer.Character.Head.Position - v.Handle.Position).Magnitude / 3)
-                v.Handle["NameEsp"..Number].TextLabel.Text = string.format("🍎 %s\n%.0f M", v.Name, distance)
+                v.Handle["NameEsp"..Number].TextLabel.Text = string.format("ðŸŽ %s\n%.0f M", v.Name, distance)
             else
                 if v.Handle:FindFirstChild("NameEsp"..Number) then
                     v.Handle:FindFirstChild("NameEsp"..Number):Destroy()
@@ -745,7 +834,7 @@ function UpdateRealFruitChams()
                     name.Text = v.Name
                 end
                 local distance = round((game:GetService("Players").LocalPlayer.Character.Head.Position - v.Handle.Position).Magnitude / 3)
-                v.Handle["NameEsp"..Number].TextLabel.Text = string.format("🍍 %s\n%.0f M", v.Name, distance)
+                v.Handle["NameEsp"..Number].TextLabel.Text = string.format("ðŸ %s\n%.0f M", v.Name, distance)
             else
                 if v.Handle:FindFirstChild("NameEsp"..Number) then
                     v.Handle:FindFirstChild("NameEsp"..Number):Destroy()
@@ -780,7 +869,7 @@ function UpdateRealFruitChams()
                     name.Text = v.Name
                 end
                 local distance = round((game:GetService("Players").LocalPlayer.Character.Head.Position - v.Handle.Position).Magnitude / 3)
-                v.Handle["NameEsp"..Number].TextLabel.Text = string.format("🍌 %s\n%.0f M", v.Name, distance)
+                v.Handle["NameEsp"..Number].TextLabel.Text = string.format("ðŸŒ %s\n%.0f M", v.Name, distance)
             else
                 if v.Handle:FindFirstChild("NameEsp"..Number) then
                     v.Handle:FindFirstChild("NameEsp"..Number):Destroy()
@@ -819,7 +908,7 @@ function UpdateGeaESP()
                         name.Text = v.Name
                     end
                     local distance = round((game:GetService("Players").LocalPlayer.Character.Head.Position - v.Position).Magnitude / 3)
-                    v["NameEsp"].TextLabel.Text = string.format("⚙️ %s\n%.0f M", v.Name, distance)
+                    v["NameEsp"].TextLabel.Text = string.format("âš™ï¸ %s\n%.0f M", v.Name, distance)
                 end
             else
                 if v:FindFirstChild("NameEsp") then
@@ -864,7 +953,7 @@ function UpdateBerriesESP()
                     if Player and Player.Character and Player.Character:FindFirstChild("Head") then
                         local Position = Player.Character.Head.Position
                         local Magnitude = (Bush.Parent:GetPivot().Position - Position).Magnitude
-                        Bush.Parent.BerryESP.TextLabel.Text = string.format("🍇 %s\n%.0fm", Berry, math.floor(Magnitude / 3))
+                        Bush.Parent.BerryESP.TextLabel.Text = string.format("ðŸ‡ %s\n%.0fm", Berry, math.floor(Magnitude / 3))
                     end
                 else
                     if Bush.Parent:FindFirstChild("NameEsp") then
@@ -905,7 +994,7 @@ function UpdatePrehistoricIslandESP()
                         name.Text = v.Name
                     end
                     local distance = round((game:GetService("Players").LocalPlayer.Character.Head.Position - v.Position).Magnitude / 3)
-                    v["NameEsp"].TextLabel.Text = string.format("🦖 %s\n%.0f M", v.Name, distance)
+                    v["NameEsp"].TextLabel.Text = string.format("ðŸ¦– %s\n%.0f M", v.Name, distance)
                 end
             else
                 if v:FindFirstChild("NameEsp") then
@@ -2001,189 +2090,10 @@ spawn(function()
 end)
 
 
--- ===== Zero Hub Key System =====
-local RivoKey = "Zero-Key"
-local RivoUnlocked = false
-local RivoExited = false
-
-local RivoKeyGui = Instance.new("ScreenGui")
-RivoKeyGui.Name = "RivoKeyGui"
-RivoKeyGui.ResetOnSpawn = false
-RivoKeyGui.IgnoreGuiInset = true
-RivoKeyGui.Parent = game:GetService("CoreGui")
-
-local function RivoNotify(msg)
-    pcall(function()
-        game:GetService("StarterGui"):SetCore("SendNotification", {
-            Title = "Zero Hub",
-            Text = msg,
-            Duration = 4
-        })
-    end)
-end
-
-local Background = Instance.new("Frame", RivoKeyGui)
-Background.Size = UDim2.new(1, 0, 1, 0)
-Background.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-Background.BackgroundTransparency = 0.4
-
-local MainFrame = Instance.new("Frame", Background)
-MainFrame.AnchorPoint = Vector2.new(0.5, 0.5)
-MainFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
-MainFrame.Size = UDim2.new(0, 400, 0, 285)
-MainFrame.BackgroundColor3 = Color3.fromRGB(22, 22, 26)
-MainFrame.BorderSizePixel = 0
-local FCorner = Instance.new("UICorner", MainFrame)
-FCorner.CornerRadius = UDim.new(0, 10)
-
-local Title = Instance.new("TextLabel", MainFrame)
-Title.AnchorPoint = Vector2.new(0.5, 0)
-Title.Position = UDim2.new(0.5, 0, 0, 14)
-Title.Size = UDim2.new(0, 300, 0, 42)
-Title.BackgroundTransparency = 1
-Title.Font = Enum.Font.GothamBold
-Title.TextSize = 28
-Title.TextColor3 = Color3.fromRGB(255, 215, 120)
-Title.Text = "Zero Hub"
-Title.TextScaled = true
-
-local Subtitle = Instance.new("TextLabel", MainFrame)
-Subtitle.AnchorPoint = Vector2.new(0.5, 0)
-Subtitle.Position = UDim2.new(0.5, 0, 0, 56)
-Subtitle.Size = UDim2.new(0, 300, 0, 24)
-Subtitle.BackgroundTransparency = 1
-Subtitle.Font = Enum.Font.Gotham
-Subtitle.TextSize = 14
-Subtitle.TextColor3 = Color3.fromRGB(180, 180, 180)
-Subtitle.Text = "Enter your key to unlock"
-
-local InputFrame = Instance.new("Frame", MainFrame)
-InputFrame.AnchorPoint = Vector2.new(0.5, 0)
-InputFrame.Position = UDim2.new(0.5, 0, 0, 92)
-InputFrame.Size = UDim2.new(0, 300, 0, 42)
-InputFrame.BackgroundColor3 = Color3.fromRGB(45, 45, 50)
-InputFrame.BorderSizePixel = 0
-local ICorner = Instance.new("UICorner", InputFrame)
-ICorner.CornerRadius = UDim.new(0, 8)
-
-local KeyBox = Instance.new("TextBox", InputFrame)
-KeyBox.Size = UDim2.new(1, 0, 1, 0)
-KeyBox.BackgroundTransparency = 1
-KeyBox.Font = Enum.Font.Gotham
-KeyBox.TextSize = 16
-KeyBox.TextColor3 = Color3.fromRGB(235, 235, 235)
-KeyBox.PlaceholderText = "Key..."
-KeyBox.PlaceholderColor3 = Color3.fromRGB(130, 130, 135)
-KeyBox.Text = ""
-
-local ErrorLabel = Instance.new("TextLabel", MainFrame)
-ErrorLabel.AnchorPoint = Vector2.new(0.5, 0)
-ErrorLabel.Position = UDim2.new(0.5, 0, 0, 138)
-ErrorLabel.Size = UDim2.new(0, 300, 0, 22)
-ErrorLabel.BackgroundTransparency = 1
-ErrorLabel.Font = Enum.Font.Gotham
-ErrorLabel.TextSize = 13
-ErrorLabel.TextColor3 = Color3.fromRGB(255, 90, 90)
-ErrorLabel.Text = ""
-
-local UnlockBtn = Instance.new("TextButton", MainFrame)
-UnlockBtn.AnchorPoint = Vector2.new(0.5, 0)
-UnlockBtn.Position = UDim2.new(0.5, -75, 0, 168)
-UnlockBtn.Size = UDim2.new(0, 150, 0, 42)
-UnlockBtn.BackgroundColor3 = Color3.fromRGB(70, 160, 90)
-UnlockBtn.BorderSizePixel = 0
-UnlockBtn.Font = Enum.Font.GothamBold
-UnlockBtn.TextSize = 16
-UnlockBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-UnlockBtn.Text = "Unlock"
-local UCorner = Instance.new("UICorner", UnlockBtn)
-UCorner.CornerRadius = UDim.new(0, 8)
-
-local ExitBtn = Instance.new("TextButton", MainFrame)
-ExitBtn.AnchorPoint = Vector2.new(0.5, 0)
-ExitBtn.Position = UDim2.new(0.5, 75, 0, 168)
-ExitBtn.Size = UDim2.new(0, 150, 0, 42)
-ExitBtn.BackgroundColor3 = Color3.fromRGB(150, 60, 60)
-ExitBtn.BorderSizePixel = 0
-ExitBtn.Font = Enum.Font.GothamBold
-ExitBtn.TextSize = 16
-ExitBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-ExitBtn.Text = "Exit"
-local ECorner = Instance.new("UICorner", ExitBtn)
-ECorner.CornerRadius = UDim.new(0, 8)
-
-local KeyLink = "https://work.ink/2eP0/zero-hub-first-step"
-
-local LinkBtn = Instance.new("TextButton", MainFrame)
-LinkBtn.AnchorPoint = Vector2.new(0.5, 0)
-LinkBtn.Position = UDim2.new(0.5, 0, 0, 216)
-LinkBtn.Size = UDim2.new(0, 320, 0, 40)
-LinkBtn.BackgroundColor3 = Color3.fromRGB(40, 110, 205)
-LinkBtn.BorderSizePixel = 0
-LinkBtn.Font = Enum.Font.GothamBold
-LinkBtn.TextSize = 15
-LinkBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-LinkBtn.Text = "Get Key: work.ink/2eP0/zero-hub-first-step"
-local LCorner = Instance.new("UICorner", LinkBtn)
-LCorner.CornerRadius = UDim.new(0, 8)
-LinkBtn.MouseButton1Click:Connect(function()
-    pcall(function()
-        setclipboard(KeyLink)
-    end)
-    local opened = pcall(function()
-        if request then
-            request({ Url = KeyLink })
-            return true
-        end
-        return false
-    end)
-    if opened then
-        RivoNotify("Opening key link...")
-    else
-        RivoNotify("Key link copied! Paste it in your browser")
-    end
-end)
-
-local verifying = false
-local function TryUnlock()
-    if verifying then return end
-    local entered = KeyBox.Text
-    if entered and entered == RivoKey then
-        verifying = true
-        UnlockBtn.Text = "Unlocked!"
-        wait(0.3)
-        RivoKeyGui:Destroy()
-        RivoUnlocked = true
-    else
-        ErrorLabel.Text = "Invalid key."
-        KeyBox.Text = ""
-        RivoNotify("Invalid key!")
-    end
-end
-
-UnlockBtn.MouseButton1Click:Connect(TryUnlock)
-KeyBox.FocusLost:Connect(function(enterPressed)
-    if enterPressed then TryUnlock() end
-end)
-ExitBtn.MouseButton1Click:Connect(function()
-    verifying = true
-    RivoNotify("Exiting Zero Hub...")
-    wait(0.3)
-    RivoKeyGui:Destroy()
-    RivoExited = true
-end)
-
-repeat task.wait() until RivoUnlocked or RivoExited
-
-if not RivoUnlocked then
-    return
-end
-
-
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/arthurkaza-real/skjlnrwejklnrjklwe3njklwer/refs/heads/main/jewa.lua"))()
 
 local MainWindow = Library:Window({
-    Name = 'Zero Hub',
+    Name = 'Bankai Hub',
     Logo = "rbxassetid://133425623304338"
 })
 
@@ -5594,7 +5504,7 @@ QuestSectionLeft:Toggle({
 
 local BossSaberStatus = QuestSectionLeft:Status({
     Name = "Boss Saber Status",
-    Desc = "Not Have Boss Saber ❌"
+    Desc = "Not Have Boss Saber âŒ"
 })
 
 QuestSectionLeft:Toggle({
@@ -5608,7 +5518,7 @@ QuestSectionLeft:Toggle({
 
 local PoleBossStatus = QuestSectionLeft:Status({
     Name = "Pole Boss Status",
-    Desc = "Pole Boss Spawning ✅"
+    Desc = "Pole Boss Spawning âœ…"
 })
 
 QuestSectionLeft:Toggle({
@@ -7020,11 +6930,11 @@ local function UpdateBossSaberStatus()
                 
                 if hasSaber then
                     BossSaberStatus:Set({
-                        Text = "Have Boss Saber ✓"
+                        Text = "Have Boss Saber âœ“"
                     })
                 else
                     BossSaberStatus:Set({
-                        Text = "Not Have Boss Saber ✗"
+                        Text = "Not Have Boss Saber âœ—"
                     })
                 end
             end)
@@ -7044,11 +6954,11 @@ local function UpdatePoleBossStatus()
                 
                 if poleSpawning then
                     PoleBossStatus:Set({
-                        Text = "Pole Boss Spawning ✓"
+                        Text = "Pole Boss Spawning âœ“"
                     })
                 else
                     PoleBossStatus:Set({
-                        Text = "Pole Boss Not Spawning ✗"
+                        Text = "Pole Boss Not Spawning âœ—"
                     })
                 end
             end)
@@ -7755,7 +7665,7 @@ end
 
 QuestSectionRight:Status({
     Name = "Check Prehistoric island",
-    Desc = "Prehistoric Island didnt Spawn ❌"
+    Desc = "Prehistoric Island didnt Spawn âŒ"
 })
 
 QuestSectionRight:Button({
@@ -8192,16 +8102,16 @@ QuestSectionRight:Status({""})
 
 local KitsuneStatus = QuestSectionRight:Status({
     Name = "Check Kitsune island",
-    Desc = "Kitsune Island didnt Spawn ❌"
+    Desc = "Kitsune Island didnt Spawn âŒ"
 })
 
 spawn(function()
     pcall(function()
         while wait() do
             if game:GetService("Workspace").Map:FindFirstChild("KitsuneIsland") then
-                KitsuneStatus.Desc = "Kitsune Island Spawning ✅"
+                KitsuneStatus.Desc = "Kitsune Island Spawning âœ…"
             else
-                KitsuneStatus.Desc = "Kitsune Island didnt Spawn ❌"
+                KitsuneStatus.Desc = "Kitsune Island didnt Spawn âŒ"
             end
         end
     end)
@@ -8611,7 +8521,7 @@ QuestSectionRight:Status({
 })
 
 local MirageStatus = QuestSectionRight:Status({
-    Name = "Mirage Island didnt Spawn ❌",
+    Name = "Mirage Island didnt Spawn âŒ",
     Desc = ""
 })
 
@@ -8619,9 +8529,9 @@ spawn(function()
     pcall(function()
         while wait() do
             if game.Workspace._WorldOrigin.Locations:FindFirstChild('Mirage Island') then
-                MirageStatus:Set({Name = 'Mirage Island Spawning ✅', Desc = ""})
+                MirageStatus:Set({Name = 'Mirage Island Spawning âœ…', Desc = ""})
             else
-                MirageStatus:Set({Name = 'Mirage Island didnt Spawn ❌', Desc = ""})
+                MirageStatus:Set({Name = 'Mirage Island didnt Spawn âŒ', Desc = ""})
              end
         end
     end)
@@ -8749,7 +8659,7 @@ end
 
 
 local PullLevelStatus = QuestSectionLeft:Status({
-    Name = "Pull Level : ❌",
+    Name = "Pull Level : âŒ",
     Desc = ""
 })
 
@@ -8766,14 +8676,14 @@ spawn(function()
                 for i,v in pairs(game:GetService("Workspace").Map.MysticIsland:GetChildren()) do 
                     if v:IsA("MeshPart")then 
                         if v.Material ==  Enum.Material.Neon then  
-                            PullLevelStatus:SetTitle("Pull Level ✅")
+                            PullLevelStatus:SetTitle("Pull Level âœ…")
                         else
-                            PullLevelStatus:SetTitle("Pull Level: ❌")
+                            PullLevelStatus:SetTitle("Pull Level: âŒ")
                         end
                     end
                 end
             else
-                PullLevelStatus:SetTitle("Pull Level: ❌")
+                PullLevelStatus:SetTitle("Pull Level: âŒ")
             end
         end)
     end
@@ -9174,9 +9084,9 @@ spawn(function()
         while wait() do
             for i, v in pairs(game.Workspace:GetChildren()) do
                 if string.find(v.Name, "Fruit") then
-                    FindFruit:SetDesc("🍏 Finding " .. v.Name)
+                    FindFruit:SetDesc("ðŸ Finding " .. v.Name)
                 else
-                    FindFruit:SetDesc("🍏 no fruits")
+                    FindFruit:SetDesc("ðŸ no fruits")
                 end
             end
         end
@@ -9746,9 +9656,9 @@ function UpdateBerriesESPColored()
                                 break
                             end
                         end
-                        rconsoleinfo("[RivoHub BerryESP] Found Berry: " .. tostring(Berry) .. " [Color: " .. colorCode .. "]")
+                        rconsoleinfo("[BankaiHub BerryESP] Found Berry: " .. tostring(Berry) .. " [Color: " .. colorCode .. "]")
                         if Bush.Parent:FindFirstChild("BerryESP") and Bush.Parent.BerryESP:FindFirstChild("TextLabel") then
-                            Bush.Parent.BerryESP.TextLabel.Text = string.format("🍇 %s\n%.0fm", Berry, math.floor(Magnitude / 3))
+                            Bush.Parent.BerryESP.TextLabel.Text = string.format("ðŸ‡ %s\n%.0fm", Berry, math.floor(Magnitude / 3))
                         end
                     end
                 else
@@ -9771,4 +9681,4 @@ SettingsPage:CreateThemingSection()
 getgenv().Library = Library
 Library:CheckForAutoLoad()
 
-
+-- madebyducluong Dac Cau Hub
