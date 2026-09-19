@@ -1,4 +1,4 @@
--- open source we dont take any of your information 
+-- open source we dont take any of your information  also be legit dont bypass key from here :)
 do
     local KEY_LINK = "https://sub2unlock.io/i5fUQ"
     local VALID_KEY = "bankai-key"
