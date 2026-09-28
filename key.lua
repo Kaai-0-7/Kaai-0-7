@@ -1,1 +1,1 @@
-bankai-key
+kairon-script
