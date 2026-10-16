@@ -6,7 +6,6 @@
   <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=20&duration=3500&pause=1500&color=A78BFA&center=true&vCenter=true&width=600&height=40&lines=Learn;Imagine.;Write+it." alt="Learn . Imagine . Write it.">
 </a>
 
-![Skills](https://skillicons.dev/icons?i=py,java,cs,lua,js)
 
 </div>
 
