@@ -17,5 +17,5 @@
 ---
 
 ## Interests
-build what my **brain** can.
+* build what my **brain** can.
 ---
